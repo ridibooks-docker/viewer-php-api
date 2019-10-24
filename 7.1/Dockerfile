@@ -10,9 +10,11 @@ RUN apt-get update --fix-missing && apt-get install --no-install-recommends -y \
     # Apache
     apache2 libapache2-mod-php7.1 \
     # PHP
-    php7.1-curl php7.1-mbstring php7.1-mcrypt php7.1-mysql php7.1-apcu php7.1-memcache php7.1-zip php7.1-bcmath     \
+    php7.1-cli php7.1-curl php7.1-mbstring php7.1-mcrypt php7.1-mysql php7.1-apcu php7.1-memcache php7.1-zip php7.1-bcmath \
+    # For PHP zip extension
+    zlib1g-dev \
     # For Cassandra php-driver
-    g++ make cmake libssl-dev zlib1g-dev libgmp-dev openssl libpcre3-dev
+    g++ make cmake libssl-dev libgmp-dev openssl libpcre3-dev
 
 RUN wget http://downloads.datastax.com/cpp-driver/ubuntu/16.04/dependencies/libuv/v1.18.0/libuv_1.18.0-1_amd64.deb && \
     wget http://downloads.datastax.com/cpp-driver/ubuntu/16.04/dependencies/libuv/v1.18.0/libuv-dev_1.18.0-1_amd64.deb && \
@@ -24,6 +26,9 @@ RUN wget http://downloads.datastax.com/cpp-driver/ubuntu/16.04/dependencies/libu
     dpkg -i cassandra-cpp-driver-dev_2.8.1-1_amd64.deb
     
 RUN apt-get autoclean -y && apt-get clean -y
+
+# PHP zip extension is required so Composer can use packages from dist
+RUN docker-php-ext-install zip
 
 # Install datastax php-driver for Cassandra
 RUN pecl install cassandra && \
