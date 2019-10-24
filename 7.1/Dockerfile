@@ -6,7 +6,7 @@ RUN apt-get update --fix-missing && apt-get install --no-install-recommends -y s
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN apt-get update --fix-missing && apt-get install --no-install-recommends -y \
     # Common
-    git wget python python-dev psmisc netcat gettext-base \
+    git wget python python-dev psmisc netcat gettext-base unzip \
     # Apache
     apache2 libapache2-mod-php7.1 \
     # PHP
