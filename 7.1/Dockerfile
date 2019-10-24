@@ -3,13 +3,10 @@ MAINTAINER Seonkuk Kim <kering@ridi.com>
 
 # Install packages
 RUN apt-get update && \
-    
     # Common
     apt-get install -y git wget software-properties-common python python-dev psmisc netcat && \
-
     # For PHP zip extension
     apt-get install -y zlib1g-dev && \
-    
     # For Cassandra php-driver
     apt-get install -y g++ make cmake libssl-dev libgmp-dev openssl libpcre3-dev && \
     wget http://downloads.datastax.com/cpp-driver/ubuntu/16.04/dependencies/libuv/v1.18.0/libuv_1.18.0-1_amd64.deb && \
@@ -20,7 +17,6 @@ RUN apt-get update && \
     dpkg -i libuv-dev_1.18.0-1_amd64.deb && \
     dpkg -i cassandra-cpp-driver_2.8.1-1_amd64.deb && \
     dpkg -i cassandra-cpp-driver-dev_2.8.1-1_amd64.deb && \
-    
     apt-get autoclean -y && \
     apt-get clean -y
 
