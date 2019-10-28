@@ -31,7 +31,9 @@ RUN apt-get autoclean -y && apt-get clean -y
 RUN docker-php-ext-install zip
 
 # Install datastax php-driver for Cassandra
-RUN pecl install cassandra && docker-php-ext-enable cassandra
+RUN pecl install cassandra
+RUN echo "extension=/usr/local/lib/php/extensions/no-debug-non-zts-20160303/cassandra.so" >> /etc/php/7.1/mods-available/cassandra.ini && \
+    phpenmod cassandra 
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php \
